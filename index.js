@@ -6,7 +6,8 @@ import { People } from "./Register.js";
 import { ERROR_MESSAGE, INSERT_SUCCESS} from './constants.js';
 import { StatusCodes } from 'http-status-codes';
 import cors from 'cors';
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
+import Jwt from 'jsonwebtoken';
 
 
 const app = express();
@@ -64,9 +65,9 @@ app.post("/LoginProfile", async (request, response) => {
     try {
         const user = await People.findOne({ email: request.body.email });
         if (user) {
-            if (bcrypt.compareSync(request.body.password, People.password)) {
+            if (bcrypt.compareSync(request.body.password, user.password)) {
                 // Generate and send a token (uncomment if needed)
-                const token = jwt.sign({ email: People.email }, "Krishna123");
+                const token = Jwt.sign({ email: People.email }, "Krishna123");
                 response.status(StatusCodes.OK).send({ message: "Login successful", token: token });
                 // response.status(StatusCodes.OK).send({ message: "Login successful" });
             }
