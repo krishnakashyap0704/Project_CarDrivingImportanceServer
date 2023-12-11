@@ -81,54 +81,42 @@ app.post("/LoginProfile", async (request, response) => {
         console.error(error);
         response.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: "Something went wrong" });
     }
+
 });
 
+//getting data of one the User
+app.get("/LicenceDataCollection/:vehicleNumber", async (request, response) => {
+    try {
+        const user = await User.findOne({ vehicleNumber: request.params.vehicleNumber });
+        if (user == null) {
+            response.status(StatusCodes.NOT_FOUND).send({ message: USER_NOT_FOUND });
+        }
+        else {
+            response.send({ user: user });
+        }
+    } catch (error) {
+        response.send({ message: "User Not Found" });
+        console.log("User not findout");
+        //response.status(StatusCodes.INTERNAL_SERVER_ERROR).send({message:ERROR_MESSAGE});
+    }
+});
 
-// //delete a person
-// app.delete("/LicenceDataCollection/:phoneNumber",async(request,response)=>{
-//     try {
-//         await User.deleteOne({phoneNumber:request.params.phoneNumber});
-//         response.send({message:DELETE_SUCCESS});
-//     } catch (error) {
-//         response.status(StatusCodes.INTERNAL_SERVER_ERROR).send({message:ERROR_MESSAGE});
-//     }
-// });
-
-// //modify a person details
-// app.put("/LicenceDataCollection/:phoneNumber",async(request,response)=>{
-//     try {
-//         await User.updateOne({phoneNumber:request.params.phoneNumber},request.body);
-//         response.send({message:UPDATE_SUCCESS});
-//     } catch (error) {
-//         response.status(StatusCodes.INTERNAL_SERVER_ERROR).send({message:ERROR_MESSAGE});
-//     }
-// });
-
-// //getting data of all the student
-// app.get("/student",async(request,response)=>{
-//     try{
-//         const students=await Student.find();
-//         response.send({students:students});
-//     }catch(error){
-//         response.send({message:"Something went wrong"});
-//     }
-// });
-
-// //getting data of one the student
-// app.get("/student/:roll",async(request,response)=>{
-//     try {
-//        const student=await Student.findOne({roll:request.params.roll});
-//        if (student==null) {
-//         response.status(StatusCodes.NOT_FOUND).send({message:STUDENT_NOT_FOUND});
-//        }
-//        else{
-//          response.send({student:student});
-//        }
-
-//     } catch (error) {
-//         response.status(StatusCodes.INTERNAL_SERVER_ERROR).send({message:ERROR_MESSAGE});
-//     }
-// });
+//getting data of one the User
+app.get("/DrivingSchoolCollection/:contact", async (request, response) => {
+    try {
+        const user = await Student.findOne({ contact: request.params.contact });
+        if (user == null) {
+            response.status(StatusCodes.NOT_FOUND).send({ message: USER_NOT_FOUND });
+        }
+        else {
+            response.send({ user: user });
+        }
+    } catch (error) {
+        response.send({ message: "User Not Found" });
+        console.log("User not findout");
+        //response.status(StatusCodes.INTERNAL_SERVER_ERROR).send({message:ERROR_MESSAGE});
+    }
+});
 
 app.listen(4100, () => {
     console.log("Server has started on 4100");
