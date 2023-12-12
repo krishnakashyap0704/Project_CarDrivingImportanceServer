@@ -27,9 +27,7 @@ The project follows a structured layout to maintain organization and modularity.
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/your-server-repo.git
-   cd your-server-repo
-
+   git clone https://github.com/krishnakashyap0704/Project_CarDrivingImportance.git
 
 Note: Before using this project please apply the following steps
       Step 1 - Please install all the dependencies and modules using the command {npm i}.
